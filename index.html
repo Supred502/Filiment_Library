@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Filament Library</title>
+<style>
+  /* Style: Material 3 on pure-black OLED, single pink accent (Mihon-like). */
+  :root { --bg:#000; --card:#121212; --line:#262626; --text:#f2f2f2; --muted:#9a9a9a; --accent:#ff7eb6; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         padding: env(safe-area-inset-top) 16px calc(24px + env(safe-area-inset-bottom)); }
+  header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:20px 0 8px; }
+  h1 { font-size:24px; margin:0; font-weight:600; }
+  .lang { display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
+  .lang button { background:none; border:0; color:var(--muted); font:inherit; font-weight:600; padding:8px 14px; min-height:40px; cursor:pointer; }
+  .lang button[aria-pressed="true"] { background:var(--accent); color:#000; }
+  .count { color:var(--muted); margin:0 0 16px; }
+  h2 { font-size:14px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:24px 0 10px; }
+  ul { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:12px; }
+  li { background:var(--card); border:1px solid var(--line); border-radius:20px; overflow:hidden; }
+  .swatch { height:96px; border-bottom:1px solid var(--line); }
+  .clear { background: repeating-conic-gradient(#bbb 0 25%, #fff 0 50%) 0 0/20px 20px; opacity:.6; }
+  .info { padding:10px 12px 12px; }
+  .name { font-weight:600; }
+  .sub { color:var(--muted); font-size:13px; }
+  .msg { color:var(--muted); text-align:center; padding:40px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title"></h1>
+  <div class="lang" role="group" aria-label="Language">
+    <button data-lang="lv">LV</button><button data-lang="en">EN</button>
+  </div>
+</header>
+<p class="count" id="count"></p>
+<main id="list"><p class="msg" id="loading"></p></main>
+
+<script>
+const T = {
+  en: { title: "My filaments", count: n => `${n} colours`, loading: "Loading…", error: "Could not load the filament list." },
+  lv: { title: "Mani filamenti", count: n => `${n} krāsas`, loading: "Ielādē…", error: "Neizdevās ielādēt filamentu sarakstu." },
+};
+// Word-by-word colour translation; unknown words stay as written.
+const LV = {
+  black:"melns", white:"balts", gray:"pelēks", grey:"pelēks", silver:"sudrabs", gold:"zelts",
+  red:"sarkans", maroon:"bordo", pink:"rozā", magenta:"fuksija", purple:"violets", lilac:"ceriņu",
+  blue:"zils", navy:"tumši zils", cyan:"ciāns", turquoise:"tirkīzs", teal:"zilganzaļš",
+  green:"zaļš", mint:"piparmētru", olive:"olīvu", lime:"laims", yellow:"dzeltens", orange:"oranžs",
+  pumpkin:"ķirbju", brown:"brūns", cocoa:"kakao", beige:"bēšs", cream:"krēmīgs", ivory:"ziloņkaula",
+  jade:"nefrīta", dark:"tumši", light:"gaiši", transparent:"caurspīdīgs", clear:"caurspīdīgs",
+  matte:"matēts", silk:"zīda", glow:"spīdošs", marble:"marmora", wood:"koka",
+};
+const lvName = s => s.split(" ").map(w => LV[w.toLowerCase()] || w).join(" ").replace(/^./, c => c.toUpperCase());
+const isClear = f => /transparent|clear/i.test(f.Name);
+
+let lang, filaments = null, failed = false;
+try { lang = localStorage.getItem("lang"); } catch {}
+if (!T[lang]) lang = navigator.language.startsWith("lv") ? "lv" : "en";
+
+function render() {
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.getElementById("title").textContent = t.title;
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+  const list = document.getElementById("list");
+  if (!filaments) {
+    list.innerHTML = `<p class="msg">${failed ? t.error : t.loading}</p>`;
+    return;
+  }
+  document.getElementById("count").textContent = t.count(filaments.length);
+  const byType = {};
+  filaments.forEach(f => (byType[f.Type] ??= []).push(f));
+  list.replaceChildren(...Object.keys(byType).sort().flatMap(type => {
+    const h = document.createElement("h2");
+    h.textContent = type;
+    const ul = document.createElement("ul");
+    for (const f of byType[type]) {
+      const li = document.createElement("li");
+      const name = lang === "lv" ? lvName(f.Name) : f.Name;
+      li.innerHTML = `<div class="swatch"></div><div class="info"><div class="name"></div><div class="sub"></div></div>`;
+      const sw = li.querySelector(".swatch");
+      if (isClear(f)) sw.classList.add("clear"); else sw.style.background = f.Color;
+      li.querySelector(".name").textContent = name;
+      li.querySelector(".sub").textContent = name === f.Name ? f.Brand : `${f.Name} · ${f.Brand}`;
+      ul.append(li);
+    }
+    return [h, ul];
+  }));
+}
+
+document.querySelectorAll(".lang button").forEach(b => b.onclick = () => {
+  lang = b.dataset.lang;
+  try { localStorage.setItem("lang", lang); } catch {}
+  render();
+});
+
+render();
+// no-store so a freshly uploaded JSON shows up without waiting for the browser cache.
+fetch("personal_library_export.json", { cache: "no-store" })
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(d => {
+    filaments = (d.Filaments || []).filter(f => f.Owned !== false && /^#[0-9a-f]{3,8}$/i.test(f.Color))
+      .sort((a, b) => a.Name.localeCompare(b.Name));
+  })
+  .catch(() => { failed = true; })
+  .finally(render);
+</script>
+</body>
+</html>

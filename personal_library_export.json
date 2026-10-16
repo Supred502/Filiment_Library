@@ -1,0 +1,183 @@
+{
+    "Filaments": [
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#00ae42",
+            "Name": "BambuLab Green",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 2,
+            "Type": "PLA",
+            "uuid": "{23a3aa5b-7c28-4688-a783-d299cbb8623a}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#e7ceb5",
+            "Name": "Beige",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 8,
+            "Type": "PLA",
+            "uuid": "{0e78ff37-53fa-40b4-a752-7fd38f38f142}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#000000",
+            "Name": "Black",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 0.6,
+            "Type": "PLA",
+            "uuid": "{43eb13d1-f422-4d84-9bce-37a0e10a2158}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#00358e",
+            "Name": "Blue",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 4,
+            "Type": "PLA",
+            "uuid": "{766f745e-c390-4c9d-8653-b16db19a1228}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#4c5f71",
+            "Name": "Blue Gray",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 3,
+            "Type": "PLA",
+            "uuid": "{d8613aaf-41c3-4b82-a885-402554966333}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#6f5034",
+            "Name": "Cocoa Brown",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 0.4,
+            "Type": "PLA",
+            "uuid": "{505752c8-689d-42e7-8372-2b31fe9a109e}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#0086d6",
+            "Name": "Cyan",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 3.5,
+            "Type": "PLA",
+            "uuid": "{843aefd0-878c-48b4-bbce-8fc5f1abfd11}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#8e9089",
+            "Name": "Gray",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 2,
+            "Type": "PLA",
+            "uuid": "{68ffdd20-1200-417a-8183-e14b4e563fcf}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#ffffff",
+            "Name": "Jade White",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 5,
+            "Type": "PLA",
+            "uuid": "{29d0549f-7950-4e60-b9e5-aa081f71d61b}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#9d2235",
+            "Name": "Maroon Red",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 1.6,
+            "Type": "PLA",
+            "uuid": "{32b6c001-a340-449c-b942-9c0f523c2b4c}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#ff5869",
+            "Name": "Pink",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 8,
+            "Type": "PLA",
+            "uuid": "{d0052b88-70f8-488f-b071-0d62f887b51d}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#ff9016",
+            "Name": "Pumpkin Orange",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 5.5,
+            "Type": "PLA",
+            "uuid": "{be641437-2559-4f8a-9bf2-89690b97d9e0}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#5e43b7",
+            "Name": "Purple",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 5,
+            "Type": "PLA",
+            "uuid": "{2016da0b-b35e-44a5-b27c-2cdf8e51392a}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#c00d1e",
+            "Name": "Red",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 4,
+            "Type": "PLA",
+            "uuid": "{4fb13a86-6187-4300-95f2-ac2c877aae5e}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#ffffff",
+            "Name": "Transparent",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 50,
+            "Type": "PETG",
+            "uuid": "{83f4eaa1-eb2b-4705-9e92-e95d3fbecfbb}"
+        },
+        {
+            "Brand": "BambuLab Basic",
+            "Color": "#fce300",
+            "Name": "Yellow",
+            "Owned": true,
+            "Tags": [
+            ],
+            "Transmissivity": 6,
+            "Type": "PLA",
+            "uuid": "{3d555b4e-0304-423a-b0b7-2a09bbaf8186}"
+        }
+    ],
+    "exported_at": "2026-10-12T14:43:26",
+    "format": "hueforge_personal_library",
+    "version": 1
+}
