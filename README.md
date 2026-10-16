@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://supred502.github.io/Filament-Library/"><b>Open the library</b></a>
+  <a href="https://supred502.github.io/Filiment_Library/"><b>Open the library</b></a>
 </p>
 
 <p align="center">
