@@ -36,7 +36,7 @@
   </div>
 </header>
 <p class="count" id="count"></p>
-<main id="list"><p class="msg" id="loading"></p></main>
+<main id="list"></main>
 
 <script>
 const T = {
@@ -102,7 +102,7 @@ render();
 fetch("personal_library_export.json", { cache: "no-store" })
   .then(r => r.ok ? r.json() : Promise.reject(r.status))
   .then(d => {
-    filaments = (d.Filaments || []).filter(f => f.Owned !== false && /^#[0-9a-f]{3,8}$/i.test(f.Color))
+    filaments = (d.Filaments || []).filter(f => f.Owned !== false && typeof f.Name === "string" && /^#[0-9a-f]{3,8}$/i.test(f.Color))
       .sort((a, b) => a.Name.localeCompare(b.Name));
   })
   .catch(() => { failed = true; })
