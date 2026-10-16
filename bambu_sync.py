@@ -41,6 +41,10 @@ def call(method, path, body=None, token=None):
 
 
 def login():
+    if not sys.stdin.isatty():  # running from the daily timer: nobody can type a code
+        msg = "Bambu login expired. Run: python3 bambu_sync.py --push in a terminal."
+        subprocess.run(["notify-send", "Filament library", msg])
+        sys.exit(msg)
     email = input("Bambu account email: ").strip()
     password = getpass.getpass("Password (leave empty if you sign in with Google/Apple — a code will be emailed): ")
     status, d = call("POST", "/v1/user-service/user/login", {"account": email, "password": password}) if password else (0, {"loginType": "verifyCode"})
