@@ -1,0 +1,175 @@
+{
+  "spools": [
+    {
+      "name": "Blue",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#0A2989FF",
+      "remain": 755,
+      "total": 1000
+    },
+    {
+      "name": "Cyan",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#0086D6FF",
+      "remain": 980,
+      "total": 1000
+    },
+    {
+      "name": "Jade White",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#FFFFFFFF",
+      "remain": 330,
+      "total": 1000
+    },
+    {
+      "name": "Yellow",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#F4EE2AFF",
+      "remain": 22,
+      "total": 1000
+    },
+    {
+      "name": "Pink",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#F55A74FF",
+      "remain": 680,
+      "total": 1000
+    },
+    {
+      "name": "Bambu Green",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#00AE42FF",
+      "remain": 730,
+      "total": 1000
+    },
+    {
+      "name": "Cocoa Brown",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#6F5034FF",
+      "remain": 765,
+      "total": 1000
+    },
+    {
+      "name": "Gray",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#8E9089FF",
+      "remain": 770,
+      "total": 1000
+    },
+    {
+      "name": "Pumpkin Orange",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#FF9016FF",
+      "remain": 950,
+      "total": 1000
+    },
+    {
+      "name": "Yellow",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#F4EE2AFF",
+      "remain": 1000,
+      "total": 1000
+    },
+    {
+      "name": "Blue Gray",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#5B6579FF",
+      "remain": 1000,
+      "total": 1000
+    },
+    {
+      "name": "Clear",
+      "brand": "Bambu Lab",
+      "material": "PETG Translucent",
+      "type": "PETG",
+      "color": "#00000000",
+      "remain": 1000,
+      "total": 1000
+    },
+    {
+      "name": "Beige",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#F7E6DEFF",
+      "remain": 1000,
+      "total": 1000
+    },
+    {
+      "name": "Maroon Red",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#9D2235FF",
+      "remain": 1000,
+      "total": 1000
+    },
+    {
+      "name": "Red",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#C12E1FFF",
+      "remain": 1000,
+      "total": 1000
+    },
+    {
+      "name": "Jade White",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#FFFFFFFF",
+      "remain": 1000,
+      "total": 1000
+    },
+    {
+      "name": "Jade White",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#FFFFFFFF",
+      "remain": 1000,
+      "total": 1000
+    },
+    {
+      "name": "Black",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#000000FF",
+      "remain": 1000,
+      "total": 1000
+    },
+    {
+      "name": "Black",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#000000FF",
+      "remain": 1000,
+      "total": 1000
+    }
+  ]
+}

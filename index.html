@@ -25,6 +25,10 @@
   .info { padding:10px 12px 12px; }
   .name { font-weight:600; }
   .sub { color:var(--muted); font-size:13px; }
+  .left { font-size:13px; margin-top:8px; }
+  .bar { height:4px; border-radius:2px; background:var(--line); margin-top:4px; }
+  .bar div { height:100%; border-radius:2px; background:var(--accent); }
+  .low .left { color:var(--accent); font-weight:600; }
   .msg { color:var(--muted); text-align:center; padding:40px 0; }
 </style>
 </head>
@@ -40,8 +44,8 @@
 
 <script>
 const T = {
-  en: { title: "My filaments", count: n => `${n} colours`, loading: "Loading…", error: "Could not load the filament list." },
-  lv: { title: "Mani filamenti", count: n => `${n} krāsas`, loading: "Ielādē…", error: "Neizdevās ielādēt filamentu sarakstu." },
+  en: { title: "My filaments", count: n => `${n} colours`, spools: n => `${n} spools`, low: "almost empty", loading: "Loading…", error: "Could not load the filament list." },
+  lv: { title: "Mani filamenti", count: n => `${n} krāsas`, spools: n => `${n} ruļļi`, low: "gandrīz beidzies", loading: "Ielādē…", error: "Neizdevās ielādēt filamentu sarakstu." },
 };
 // Word-by-word colour translation; unknown words stay as written.
 const LV = {
@@ -54,7 +58,8 @@ const LV = {
   matte:"matēts", silk:"zīda", glow:"spīdošs", marble:"marmora", wood:"koka",
 };
 const lvName = s => s.split(" ").map(w => LV[w.toLowerCase()] || w).join(" ").replace(/^./, c => c.toUpperCase());
-const isClear = f => /transparent|clear/i.test(f.Name);
+// #RRGGBBAA with a low alpha byte means see-through filament.
+const isClear = f => /transparent|clear/i.test(f.name) || (f.color.length === 9 && parseInt(f.color.slice(7), 16) < 0x80);
 
 let lang, filaments = null, failed = false;
 try { lang = localStorage.getItem("lang"); } catch {}
@@ -72,19 +77,25 @@ function render() {
   }
   document.getElementById("count").textContent = t.count(filaments.length);
   const byType = {};
-  filaments.forEach(f => (byType[f.Type] ??= []).push(f));
+  filaments.forEach(f => (byType[f.type] ??= []).push(f));
   list.replaceChildren(...Object.keys(byType).sort().flatMap(type => {
     const h = document.createElement("h2");
     h.textContent = type;
     const ul = document.createElement("ul");
     for (const f of byType[type]) {
       const li = document.createElement("li");
-      const name = lang === "lv" ? lvName(f.Name) : f.Name;
-      li.innerHTML = `<div class="swatch"></div><div class="info"><div class="name"></div><div class="sub"></div></div>`;
+      const name = lang === "lv" ? lvName(f.name) : f.name;
+      li.innerHTML = `<div class="swatch"></div><div class="info"><div class="name"></div><div class="sub"></div><div class="left"></div><div class="bar"><div></div></div></div>`;
       const sw = li.querySelector(".swatch");
-      if (isClear(f)) sw.classList.add("clear"); else sw.style.background = f.Color;
+      if (isClear(f)) sw.classList.add("clear"); else sw.style.background = f.color;
       li.querySelector(".name").textContent = name;
-      li.querySelector(".sub").textContent = name === f.Name ? f.Brand : `${f.Name} · ${f.Brand}`;
+      const material = `${f.brand} ${f.material}`;
+      li.querySelector(".sub").textContent = name === f.name ? material : `${f.name} · ${material}`;
+      const pct = f.total > 0 ? Math.min(100, Math.round(f.remain / f.total * 100)) : 0;
+      const low = pct < 15;
+      li.classList.toggle("low", low);
+      li.querySelector(".left").textContent = [f.count > 1 && t.spools(f.count), `${f.remain} g`, low && t.low].filter(Boolean).join(" · ");
+      li.querySelector(".bar div").style.width = pct + "%";
       ul.append(li);
     }
     return [h, ul];
@@ -99,11 +110,20 @@ document.querySelectorAll(".lang button").forEach(b => b.onclick = () => {
 
 render();
 // no-store so a freshly uploaded JSON shows up without waiting for the browser cache.
-fetch("personal_library_export.json", { cache: "no-store" })
+fetch("filaments.json", { cache: "no-store" })
   .then(r => r.ok ? r.json() : Promise.reject(r.status))
   .then(d => {
-    filaments = (d.Filaments || []).filter(f => f.Owned !== false && typeof f.Name === "string" && /^#[0-9a-f]{3,8}$/i.test(f.Color))
-      .sort((a, b) => a.Name.localeCompare(b.Name));
+    // Same colour + material on several spools shows as one tile with the grams added up.
+    const merged = {};
+    for (const f of d.spools || []) {
+      if (typeof f.name !== "string" || !/^#[0-9a-f]{3,8}$/i.test(f.color)) continue;
+      const key = [f.name, f.material, f.color.toUpperCase()].join("|");
+      const m = merged[key] ??= { ...f, remain: 0, total: 0, count: 0 };
+      m.remain += +f.remain || 0;
+      m.total += +f.total || 0;
+      m.count++;
+    }
+    filaments = Object.values(merged).sort((a, b) => a.name.localeCompare(b.name));
   })
   .catch(() => { failed = true; })
   .finally(render);

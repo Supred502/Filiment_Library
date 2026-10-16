@@ -15,16 +15,23 @@
 
 ## Features
 
-- A colour swatch, name and brand for every owned filament, grouped by material (PLA, PETG, …)
+- A colour swatch, name and how many grams are left for every spool, grouped by material (PLA, PETG, …)
+- Several spools of the same colour show as one tile with the grams added up; nearly empty colours are highlighted
 - Transparent filaments shown with a see-through checker pattern
 - **LV / EN** switch; colour names are translated too, and the choice is remembered on each device
 - Works on any phone, no app to install
 
 ## Updating the list
 
-1. In HueForge, export the personal filament library (`personal_library_export.json`).
-2. On this repo, open **Add file → Upload files** and drop in the new `personal_library_export.json`, replacing the old one.
-3. Commit. The page updates on every device within a minute or two.
+The list comes from the Filament Manager in Bambu Studio / Bambu Handy.
+
+```bash
+python3 bambu_sync.py --push
+```
+
+The first run asks for your Bambu login (leave the password empty to get a code by email if you sign in with Google). The login is kept in `~/.config/filament-sync/token`, outside this repo. The script saves `filaments.json` with only colour, material and weight, then commits and pushes it; every device shows the new list within a minute or two.
+
+Bambu has no official API for this, so the script may need fixing if Bambu changes things. Colour names come from Bambu Studio's own colour table, so Bambu Studio must be installed on the computer that runs it.
 
 ## Run locally
 
