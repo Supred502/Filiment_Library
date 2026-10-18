@@ -1,6 +1,15 @@
 {
   "spools": [
     {
+      "name": "Purple",
+      "brand": "Bambu Lab",
+      "material": "PLA Basic",
+      "type": "PLA",
+      "color": "#5E43B7FF",
+      "remain": 820,
+      "total": 1000
+    },
+    {
       "name": "Blue",
       "brand": "Bambu Lab",
       "material": "PLA Basic",
